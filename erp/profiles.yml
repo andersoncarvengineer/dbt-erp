@@ -1,0 +1,15 @@
+erp:
+  target: dev
+  outputs:
+    dev:
+      type: sqlserver
+      driver: 'ODBC Driver 18 for SQL Server'
+      host: "{{ env_var('DBT_MSSQL_HOST', 'localhost') }}"
+      port: 1433
+      database: AdventureWorks2022
+      schema: "{{ env_var('DBT_SCHEMA', 'dbt_anderson') }}"
+      user: "{{ env_var('DBT_MSSQL_USER', 'dbt_user') }}"
+      password: "{{ env_var('DBT_ENV_SECRET_MSSQL_PASSWORD') }}"
+      encrypt: true
+      trust_cert: true
+      threads: 4
