@@ -1,0 +1,20 @@
+sources:
+  - name: sales
+    description: Schema Sales do ERP AdventureWorks2022 (SQL Server).
+    database: AdventureWorks2022
+    schema: Sales
+    tables:
+      - name: SalesOrderHeader
+        description: Cabeçalho do pedido. Uma linha por pedido.
+      - name: SalesOrderDetail
+        description: Itens do pedido. Uma linha por item.
+      - name: Customer
+        description: Cliente, que pode ser uma pessoa ou uma loja.
+
+  - name: production
+    description: Schema Production do ERP AdventureWorks2022.
+    database: AdventureWorks2022
+    schema: Production
+    tables:
+      - name: Product
+        description: Cadastro de produtos. Uma linha por produto.
