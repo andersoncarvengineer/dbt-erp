@@ -1,0 +1,49 @@
+models:
+  - name: stg_sales__orders
+    description: Pedidos do ERP. Uma linha por pedido.
+    columns:
+      - name: order_id
+        data_tests: [unique, not_null]
+      - name: customer_id
+        data_tests: [not_null]
+      - name: status
+        description: Status traduzido do código do ERP (1 a 6).
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['in_process', 'approved', 'backordered',
+                         'rejected', 'shipped', 'cancelled']
+
+  - name: stg_sales__order_details
+    description: Itens dos pedidos. Uma linha por item.
+    columns:
+      - name: order_detail_id
+        data_tests: [unique, not_null]
+      - name: order_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_sales__orders')
+                field: order_id
+      - name: discount_rate
+        description: Desconto como fração do preço (0.02 = 2%). Não é valor em dinheiro.
+   
+  - name: stg_sales__customers
+    description: Clientes do ERP. Pode ser uma pessoa (person_id) ou uma loja (store_id).
+    columns:
+      - name: customer_id
+        data_tests: [unique, not_null]
+
+  - name: stg_production__products
+    description: Produtos do ERP. Uma linha por produto. Peso em kg; códigos sem espaço no final.
+    columns:
+      - name: product_id
+        data_tests: [unique, not_null]
+      - name: product_line
+        description: R = Road, M = Mountain, T = Touring, S = Standard. Nulo para peças e acessórios.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['R', 'M', 'T', 'S']
