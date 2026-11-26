@@ -22,6 +22,7 @@ joined as (
         order_details.order_detail_id,
         order_details.order_id,
         orders.customer_id,
+        orders.salesperson_id,
         order_details.product_id,
 
         -- datas e status do pedido
