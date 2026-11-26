@@ -1,0 +1,16 @@
+models:
+  - name: fct_sales
+    description: >
+      Uma linha por item de pedido. Incremental (merge) pelo order_detail_id.
+      modified_at = a maior data entre a alteração do pedido e a do item.
+      Janela de 3 dias para registros atrasados.
+      Mudanças no SQL deste modelo exigem dbt build --full-refresh.
+    columns:
+      - name: order_detail_id
+        description: Chave do item. É o unique_key do incremental.
+        data_tests: [unique, not_null]
+      - name: order_id
+        data_tests: [not_null]
+      - name: modified_at
+        description: Base da janela do incremental. Não pode ser nula nem futura.
+        data_tests: [not_null]
